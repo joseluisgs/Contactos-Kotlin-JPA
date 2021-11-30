@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Persistence</ID>
+  <OriginalElement>JavaeeElement:/bfb610d8/default/consoleApp/jpa/JPA/PersistenceModel</OriginalElement>
+  <nodes>
+    <node x="256.0" y="155.0">Address#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/Address.kt</node>
+    <node x="-222.0" y="171.0">PhoneNumber#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/PhoneNumber.kt</node>
+    <node x="16.25" y="171.0">Person#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/Person.kt</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Person#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/Person.kt" target="PhoneNumber#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/PhoneNumber.kt" relationship="RELATION">
+      <point x="0.0" y="-49.5" />
+      <point x="77.25" y="220.5" />
+      <point x="-147.5" y="220.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Person#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/Person.kt" target="Address#file:///Users/link/Proyectos/Contactos-Kotlin-JPA/src/main/kotlin/model/Address.kt" relationship="RELATION">
+      <point x="0.0" y="-49.5" />
+      <point x="77.25" y="220.5" />
+      <point x="337.0" y="220.5" />
+      <point x="0.0" y="60.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="165.5" y="135.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Embeddables</Category>
+    <Category>Properties</Category>
+    <Category>Superclasses</Category>
+  </Categories>
+</Diagram>
+
