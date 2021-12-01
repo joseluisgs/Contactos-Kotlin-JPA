@@ -19,7 +19,7 @@ class AddressMapper: BaseMapper<Address, AddressDTO>() {
             item.street,
             item.postalCode,
             item.city,
-            item.person.id
+            item.person!!.id
         )
     }
 }

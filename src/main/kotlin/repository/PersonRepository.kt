@@ -38,7 +38,7 @@ class PersonRepository: CrudRespository<Person, Long> {
             return person
         } catch (e: Exception) {
             HibernateController.transaction.rollback();
-            throw SQLException("Error PersonRepository al insertar Person en BD");
+            throw SQLException("Error PersonRepository al insertar Person en BD: ${e.message}: ${e.message}")
         }
     }
 
@@ -52,20 +52,24 @@ class PersonRepository: CrudRespository<Person, Long> {
         } catch (e: Exception) {
             HibernateController.transaction.rollback();
             println(e.stackTraceToString())
-            throw SQLException("Error PersonRepository update al actualizar Person ID: ${person.id}");
+            throw SQLException("Error PersonRepository update al actualizar Person ID: ${person.id}: ${e.message}");
         }
     }
 
     @Throws(SQLException::class)
     override fun delete(person: Person): Person {
         try {
+            // Debemos buscarlo priomero para evitar
+            // Exception Removing a detached instance model.
+            // Deben estar en la misma sesion lo que buscas y borras
+            val personToDelete = HibernateController.manager.find(Person::class.java, person.id)
             HibernateController.transaction.begin();
-            val ret = HibernateController.manager.remove(person)
+            HibernateController.manager.remove(personToDelete)
             HibernateController.transaction.commit();
-            return person
+            return personToDelete
         } catch (e: Exception) {
             HibernateController.transaction.rollback();
-            throw SQLException("Error PersonRepository delete al actualizar Person ID: ${person.id}");
+            throw SQLException("Error PersonRepository delete al actualizar Person ID: ${person.id}: ${e.message}")
         }
     }
 }

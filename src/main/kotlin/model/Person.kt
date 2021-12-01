@@ -36,12 +36,12 @@ data class Person(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
-    constructor(id: Long, name: String, email: String?, telephone: PhoneNumber?, address: Address?) :
+    constructor(id: Long, name: String, email: String?, telephone: Set<PhoneNumber>?, address: Set<Address>?) :
             this(
                 name,
                 email,
-                telephone?.let { mutableSetOf(it) },
-                address?.let { mutableSetOf(it) },
+                telephone?.toMutableSet(),
+                address?.toMutableSet(),
             ) {
         this.id = id
     }

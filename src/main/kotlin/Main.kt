@@ -10,12 +10,13 @@ fun main(args: Array<String>) {
     // Para meter las cosas usaremos el objeto normal, las salidas siempre DTO
 
     // LLamadas normales
-
-    runControllerToString()
-    runControllerJson()
+    //runControllerToString()
+    //runControllerJson()
+    runControllerIOJson()
 }
 
 fun runControllerJson() {
+    // Vamos a pasar los datos como JSON para simular que nos llegan así
     val p1 = Person(
         "Juan${Instant.now()}",
         "juan${Instant.now()}@juan.es",
@@ -24,8 +25,8 @@ fun runControllerJson() {
             PhoneNumber("202-555-0102")
         ).toMutableSet(), // Son mutables porque los quiero cambiar
         setOf(
-            Address("Luis Vives${Instant.now()}", "Leganes", "28918")
-        ).toHashSet()
+            Address("Luis Vives${Instant.now()}", "28819", "Leganes")
+        ).toMutableSet(), //
     )
 
     // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
@@ -40,8 +41,8 @@ fun runControllerJson() {
             PhoneNumber("666-555-0171")
         ).toMutableSet(), // Son mutables porque los quiero cambiar
         setOf(
-            Address("Zazaquemada${Instant.now()}", "Leganes", "28916")
-        ).toHashSet()
+            Address("Zazaquemada${Instant.now()}", "28916", "Leganes")
+        ).toMutableSet()
     )
 
     // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
@@ -69,7 +70,7 @@ fun runControllerJson() {
     // Update
     p1.email = "modificado${Instant.now()}@modificado.com"
     // Otra dirección
-    p1.myAddress?.add(Address("Dolor Gigante${Instant.now()}", "Leganes", "28918", p1))
+    p1.myAddress?.add(Address("Dolor Gigante${Instant.now()}", "28918", "Leganes", p1))
     println("Update JSON")
     json = PersonController.updateJson(p1)
     println(json)
@@ -95,7 +96,7 @@ fun runControllerToString() {
             PhoneNumber("202-555-0102")
         ).toMutableSet(), // Son mutables porque los quiero cambiar
         setOf(
-            Address("Calle Luis Vives", "Leganes", "28918")
+            Address("Calle Luis Vives", "28918", "Leganes")
         ).toHashSet()
     )
 
@@ -111,7 +112,7 @@ fun runControllerToString() {
             PhoneNumber("666-555-0171")
         ).toMutableSet(), // Son mutables porque los quiero cambiar
         setOf(
-            Address("Calle Zazaquemada", "Leganes", "28916")
+            Address("Calle Zazaquemada", "28916", "Leganes")
         ).toHashSet()
     )
 
@@ -170,4 +171,83 @@ fun runControllerToString() {
     list = PersonController.findAll()
     list?.forEach { println(it) }
     println()
+}
+
+fun runControllerIOJson() {
+    // Vamos a pasar los datos como JSON para simular que nos llegan así
+    var p = """
+        {
+          "name": "Json${Instant.now()}",
+          "email": "Json${Instant.now()}@jsondomain.es",
+          "telephone": [
+            {
+              "number": "666-555-9999"
+            }
+          ],
+          "address": [
+            {
+              "street": "Json Street ${Instant.now()}",
+              "postalCode": "28080",
+              "city": "Leganes"
+            }
+          ]
+        }
+        """.trimIndent()
+
+    println("Save INPUT JSON")
+    var json = PersonController.saveInputJson(p)
+    println(json)
+    println()
+
+    println("Find All JSON")
+    json = PersonController.findAllJson()
+    println(json)
+    println()
+
+    println("Find by ID JSON")
+    // Realmente aquí nos llegan los datos como JSON, pero no sabemos que ID vamos a buscar
+    val id = """
+        {
+          "id": 1
+        }
+    """.trimIndent()
+
+    json = PersonController.findByIdInputJson(id)
+    println(json)
+    println()
+
+    println("Update INPUT JSON")
+    // Update
+    p = """
+        {
+          "id": 1,
+          "name": "ModJson${Instant.now()}",
+          "email": "Json${Instant.now()}@jsondomain.es",
+          "telephone": [
+            {
+              "id": 1,
+              "number": "666-555-9999"
+            },
+            {
+              "id": 2,
+              "number": "666-555-8888"
+            }
+          ]
+        }
+        """.trimIndent()
+    // Otra dirección
+    json = PersonController.updateInputJson(p)
+    println(json)
+    println()
+
+    println("Delete JSON")
+    json = PersonController.deleteInputJson(p)
+    println(json)
+    println()
+
+    println("Find All JSON")
+    //json = PersonController.findAllJson()
+    //println(json)
+    //println()
+
 }

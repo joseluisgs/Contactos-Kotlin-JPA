@@ -23,7 +23,12 @@ object PersonJsonConverter: IJSonConverter<PersonDTO, String> {
     }
 
     override fun convertFrom(json: String): PersonDTO {
-        TODO("Not yet implemented")
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        return gson.fromJson(json, PersonDTO::class.java)
+    }
+
+    fun fromJson(json: String): PersonDTO {
+        return convertFrom(json)
     }
 
 
