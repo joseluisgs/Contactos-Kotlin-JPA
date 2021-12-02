@@ -17,27 +17,26 @@ class PersonService(): CrudService<PersonRepository, Person, PersonDTO, PersonMa
     // De nuevo no es obligatorio anotarlas
     @Throws(SQLException::class)
     override fun findAll(): List<PersonDTO>? {
-        return repository.findAll()?.let { mapper.toDTO(it) }
+        return mapper.toDTO(repository.findAll())
     }
 
     @Throws(SQLException::class)
-    override fun findById(id: Long): PersonDTO? {
-        return repository.findById(id)?.let { mapper.toDTO(it) }
+    override fun findById(id: Long): PersonDTO {
+        return repository.findById(id).let { mapper.toDTO(it) }
     }
 
     @Throws(SQLException::class)
-    override fun save(item: Person): PersonDTO? {
-        return repository
-            .save(item).let { mapper.toDTO(it) }
+    override fun save(item: Person): PersonDTO {
+        return mapper.toDTO(repository.save(item))
     }
 
     @Throws(SQLException::class)
-    override fun update(item: Person): PersonDTO? {
-        return repository.update(item).let { mapper.toDTO(it) }
+    override fun update(item: Person): PersonDTO {
+        return mapper.toDTO(repository.update(item))
     }
 
     @Throws(SQLException::class)
-    override fun delete(item: Person): PersonDTO? {
-        return repository.delete(item).let { mapper.toDTO(it) }
+    override fun delete(item: Person): PersonDTO {
+        return mapper.toDTO(repository.delete(item))
     }
 }

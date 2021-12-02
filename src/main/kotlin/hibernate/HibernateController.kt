@@ -10,10 +10,4 @@ object HibernateController {
     val manager: EntityManager = entityManagerFactory.createEntityManager()
     val transaction: EntityTransaction = manager.transaction
 
-
-    fun close() {
-        manager.close()
-        entityManagerFactory?.close()
-    }
-
 }
