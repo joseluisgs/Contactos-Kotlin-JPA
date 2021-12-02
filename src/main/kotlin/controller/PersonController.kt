@@ -1,9 +1,11 @@
 package controller
 
 import converter.PersonJsonConverter
+import converter.ResponseJsonConverter
 import dto.PersonDTO
 import mapper.PersonMapper
 import model.Person
+import response.Response
 import org.json.JSONObject
 import service.PersonService
 
@@ -15,86 +17,149 @@ object PersonController: IController<PersonService> {
 
     // Este lo dejo porque lo necesito
     fun findAll(): List<PersonDTO>? {
-        return service.findAll()
+        return try {
+            service.findAll()
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
     }
 
     fun findById(id: Long): PersonDTO? {
-        return service.findById(id)
+        return try {
+            service.findById(id)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
     }
 
     fun save(person: Person): PersonDTO? {
-        return service.save(person)
+        return try {
+            service.save(person)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
     }
 
     fun update(person: Person): PersonDTO? {
-        return service.update(person)
+        return try {
+            service.update(person)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
     }
 
     fun delete(person: Person): PersonDTO? {
-        return service.delete(person)
+        return try {
+            service.delete(person)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
     }
 
     // JSON
     fun findAllJson(): String? {
-        return service.findAll()?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            ResponseJsonConverter.toJson(service.findAll()?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun findByIdJson(id: Long): String? {
-        return service.findById(id)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            ResponseJsonConverter.toJson(service.findById(id)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun saveJson(person: Person): String? {
-        return service.save(person)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            ResponseJsonConverter.toJson(service.save(person)?.let { Response(201, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun updateJson(person: Person): String? {
-        return service.update(person)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            ResponseJsonConverter.toJson(service.update(person)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun deleteJson(person: Person): String? {
-        return service.delete(person)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            ResponseJsonConverter.toJson(service.delete(person)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun saveInputJson(json: String): String? {
-        // Lo primero es leer el JSON y transformalo en objetos
-        //println("JSON: $json")
-        // Trasformamos a DTO
-        val personDTO = PersonJsonConverter.fromJson(json)
-        // Luego a objeto
-        val person = mapper.fromDTO(personDTO)
-        // Realmente lo de pasarle todos los datos es una locura :)
-        // Así que despues de leerlo, vamos a eliminar su dirección, pues tenemos una relación ahí
-        // Lo ideal seria dar de alta la dirección y luego asociarla a la persona
-        // Por eso lo pongo a null
-        // Salvamos
-        person.myAddress = null
-        // person.myPhoneNumbers = null
-        return service.save(person)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            // Lo primero es leer el JSON y transformalo en objetos
+            //println("JSON: $json")
+            // Trasformamos a DTO
+            val personDTO = PersonJsonConverter.fromJson(json)
+            // Luego a objeto
+            val person = mapper.fromDTO(personDTO)
+            // Realmente lo de pasarle todos los datos es una locura :)
+            // Así que despues de leerlo, vamos a eliminar su dirección, pues tenemos una relación ahí
+            // Lo ideal seria dar de alta la dirección y luego asociarla a la persona
+            // Por eso lo pongo a null
+            // Salvamos
+            person.myAddress = null
+            // person.myPhoneNumbers = null
+            ResponseJsonConverter.toJson(service.save(person)?.let { Response(201, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun findByIdInputJson(id: String): String? {
-        // transformamos el ID
-        val jsonObj = JSONObject(id)
-        val map = jsonObj.toMap()
-        val personId = (map["id"] as Int).toLong()
-        return service.findById(personId)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            // transformamos el ID
+            val jsonObj = JSONObject(id)
+            val map = jsonObj.toMap()
+            val personId = (map["id"] as Int).toLong()
+            ResponseJsonConverter.toJson(service.findById(personId)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun updateInputJson(json: String): String? {
+        return try {
         // idem a save
         val personDTO = PersonJsonConverter.fromJson(json)
         // Podríamos buscarlo y actualizarlo.... Mira Delete
         val person = mapper.fromDTO(personDTO)
         person.myAddress = null
         // person.myPhoneNumbers = null
-        return service.update(person)?.let { PersonJsonConverter.toJson(it) }
+            ResponseJsonConverter.toJson(service.update(person)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 
     fun deleteInputJson(json: String): String? {
-        // idem a save
-        var personDTO = PersonJsonConverter.fromJson(json)
-        // Lo buscamos
-        val person = mapper.fromDTO(personDTO)
-        return service.delete(person)?.let { PersonJsonConverter.toJson(it) }
+        return try {
+            // idem a save
+            val personDTO = PersonJsonConverter.fromJson(json)
+            // Podríamos buscarlo y actualizarlo.... Mira Delete
+            val person = mapper.fromDTO(personDTO)
+            person.myAddress = null
+            // person.myPhoneNumbers = null
+            ResponseJsonConverter.toJson(service.delete(person)?.let { Response(200, it) })
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+        }
     }
 }

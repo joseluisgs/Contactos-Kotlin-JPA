@@ -8,14 +8,97 @@ fun main(args: Array<String>) {
     println("Kotlin JPA")
 
     // Para meter las cosas usaremos el objeto normal, las salidas siempre DTO
+    // Comenta todas y ejecuta solo una!!!
 
-    // LLamadas normales
+    // LLamadas normales. Ojo no se ve por como está formado el string
     //runControllerToString()
-    //runControllerJson()
-    runControllerIOJson()
+
+    // Pasandole JSON como entrada de Datos
+    //runControllerIOJson()
+
+    runControllerJson()
+}
+
+fun runControllerToString() {
+    println("--> toString: Ojo no se ve por los formatos de las cadenas")
+    val p1 = Person(
+        "Juan",
+        "juan@juan.es",
+        setOf(
+            PhoneNumber("202-555-0171"),
+            PhoneNumber("202-555-0102")
+        ).toMutableSet(), // Son mutables porque los quiero cambiar
+        setOf(
+            Address("Calle Luis Vives", "28918", "Leganes")
+        ).toHashSet()
+    )
+
+    // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
+    p1.myAddress?.forEach {
+        it.person = p1
+    }
+
+    val p2 = Person(
+        "Pepe",
+        "Pepe@Pepe.es",
+        setOf(
+            PhoneNumber("666-555-0171")
+        ).toMutableSet(), // Son mutables porque los quiero cambiar
+        setOf(
+            Address("Calle Zazaquemada", "28916", "Leganes")
+        ).toHashSet()
+    )
+
+    // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
+    p2.myAddress?.forEach {
+        it.person = p2
+    }
+
+    println("Save")
+    var dto = PersonController.save(p1)
+    println(dto)
+    dto = PersonController.save(p2)
+    println(dto)
+    println()
+
+    println("Find All")
+    var list = PersonController.findAll()
+    list?.forEach { println(it) }
+    println()
+
+    println("Find All JSON")
+    val json = PersonController.findAllJson()
+    println(json)
+    println()
+
+    println("Find by ID")
+    dto = PersonController.findById(list!![0].id)
+    println(dto)
+    println()
+
+    // Update
+    p1.email = "modificado@modificado.com"
+    // Otra dirección
+    p1.myAddress?.add(Address("Calle Dolor Gigante", "Leganes", "28918", p1))
+    println("Update")
+
+    dto = PersonController.update(p1)
+    println(dto)
+    println()
+
+    println("Delete")
+    dto = PersonController.delete(p2)
+    println(dto)
+    println()
+
+    println("Find All")
+    list = PersonController.findAll()
+    list?.forEach { println(it) }
+    println()
 }
 
 fun runControllerJson() {
+    println("--> toJSON: Salida en JSON")
     // Vamos a pasar los datos como JSON para simular que nos llegan así
     val p1 = Person(
         "Juan${Instant.now()}",
@@ -87,93 +170,8 @@ fun runControllerJson() {
     println()
 }
 
-fun runControllerToString() {
-    val p1 = Person(
-        "Juan",
-        "juan@juan.es",
-        setOf(
-            PhoneNumber("202-555-0171"),
-            PhoneNumber("202-555-0102")
-        ).toMutableSet(), // Son mutables porque los quiero cambiar
-        setOf(
-            Address("Calle Luis Vives", "28918", "Leganes")
-        ).toHashSet()
-    )
-
-    // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
-    p1.myAddress?.forEach {
-        it.person = p1
-    }
-
-    val p2 = Person(
-        "Pepe",
-        "Pepe@Pepe.es",
-        setOf(
-            PhoneNumber("666-555-0171")
-        ).toMutableSet(), // Son mutables porque los quiero cambiar
-        setOf(
-            Address("Calle Zazaquemada", "28916", "Leganes")
-        ).toHashSet()
-    )
-
-    // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
-    p2.myAddress?.forEach {
-        it.person = p2
-    }
-
-    println("Save")
-    var dto = PersonController.save(p1)
-    println(dto)
-    dto = PersonController.save(p2)
-    println(dto)
-    println()
-
-    println("Find All")
-    var list = PersonController.findAll()
-    list?.forEach { println(it) }
-    println()
-
-    println("Find All JSON")
-    var json = PersonController.findAllJson()
-    println(json)
-    println()
-
-    println("Find by ID")
-    dto = PersonController.findById(list!![0].id)
-    println(dto)
-    println()
-
-    println("Find by ID JSON")
-    json = PersonController.findByIdJson(list[0].id)
-    println(json)
-    println()
-
-    println("Save JSON")
-    json = PersonController.saveJson(p1)
-    println(json)
-    println()
-
-    // Update
-    p1.email = "modificado@modificado.com"
-    // Otra dirección
-    p1.myAddress?.add(Address("Calle Dolor Gigante", "Leganes", "28918", p1))
-    println("Update")
-    dto = PersonController.update(p1)
-    println(dto)
-    println()
-
-    println("Delete")
-    dto = PersonController.delete(p2)
-    println(dto)
-    println()
-
-    println("Find All")
-    list = PersonController.findAll()
-    list?.forEach { println(it) }
-    println()
-}
-
 fun runControllerIOJson() {
+    println("--> InputJSON toJSON: Entrada/Salida en JSON")
     // Vamos a pasar los datos como JSON para simular que nos llegan así
     var p = """
         {
