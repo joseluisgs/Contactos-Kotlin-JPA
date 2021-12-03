@@ -1,6 +1,6 @@
 package mapper
 
-abstract class BaseMapper<T, DTO>: IMapper<T, DTO> {
+abstract class BaseMapper<T, DTO> : IMapper<T, DTO> {
     override fun fromDTO(items: List<DTO>): List<T> {
         return items.map { item: DTO -> this.fromDTO(item) }.toList()
     }

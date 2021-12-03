@@ -1,6 +1,5 @@
 package repository
 
-import dto.PersonDTO
 import java.sql.SQLException
 
 interface CrudRespository<T, ID> {

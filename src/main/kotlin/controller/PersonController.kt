@@ -5,11 +5,11 @@ import converter.ResponseJsonConverter
 import dto.PersonDTO
 import mapper.PersonMapper
 import model.Person
-import response.Response
 import org.json.JSONObject
+import response.Response
 import service.PersonService
 
-object PersonController: IController<PersonService> {
+object PersonController : IController<PersonService> {
     // Mi servicio principal
     override val service = PersonService()
     val mapper: PersonMapper = PersonMapper()
@@ -66,7 +66,7 @@ object PersonController: IController<PersonService> {
         return try {
             ResponseJsonConverter.toJson(Response(200, service.findAll()))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -74,7 +74,7 @@ object PersonController: IController<PersonService> {
         return try {
             ResponseJsonConverter.toJson(Response(200, service.findById(id)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -82,7 +82,7 @@ object PersonController: IController<PersonService> {
         return try {
             ResponseJsonConverter.toJson(Response(201, service.save(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -90,7 +90,7 @@ object PersonController: IController<PersonService> {
         return try {
             ResponseJsonConverter.toJson(Response(200, service.update(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -98,7 +98,7 @@ object PersonController: IController<PersonService> {
         return try {
             ResponseJsonConverter.toJson(Response(200, service.delete(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -119,7 +119,7 @@ object PersonController: IController<PersonService> {
             // person.myPhoneNumbers = null
             ResponseJsonConverter.toJson(Response(201, service.save(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -131,21 +131,21 @@ object PersonController: IController<PersonService> {
             val personId = (map["id"] as Int).toLong()
             ResponseJsonConverter.toJson(Response(200, service.findById(personId)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
     fun updateInputJson(json: String): String? {
         return try {
-        // idem a save
-        val personDTO = PersonJsonConverter.fromJson(json)
-        // Podríamos buscarlo y actualizarlo.... Mira Delete
-        val person = mapper.fromDTO(personDTO)
-        person.myAddress = null
-        // person.myPhoneNumbers = null
+            // idem a save
+            val personDTO = PersonJsonConverter.fromJson(json)
+            // Podríamos buscarlo y actualizarlo.... Mira Delete
+            val person = mapper.fromDTO(personDTO)
+            person.myAddress = null
+            // person.myPhoneNumbers = null
             ResponseJsonConverter.toJson(Response(200, service.update(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 
@@ -159,7 +159,7 @@ object PersonController: IController<PersonService> {
             // person.myPhoneNumbers = null
             ResponseJsonConverter.toJson(Response(200, service.delete(person)))
         } catch (e: Exception) {
-            ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
     }
 }

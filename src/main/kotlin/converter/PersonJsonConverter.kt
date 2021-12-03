@@ -3,7 +3,7 @@ package converter
 import com.google.gson.GsonBuilder
 import dto.PersonDTO
 
-object PersonJsonConverter: IJSonConverter<PersonDTO, String> {
+object PersonJsonConverter : IJSonConverter<PersonDTO, String> {
     override fun convertTo(item: PersonDTO): String {
         val gson = GsonBuilder().setPrettyPrinting().create()
         return gson.toJson(item)
@@ -17,6 +17,7 @@ object PersonJsonConverter: IJSonConverter<PersonDTO, String> {
         val gson = GsonBuilder().setPrettyPrinting().create()
         return gson.toJson(item)
     }
+
     fun toJson(item: List<PersonDTO>): String {
         return convertTo(item)
     }

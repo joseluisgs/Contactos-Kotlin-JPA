@@ -5,7 +5,7 @@ import model.Person
 import java.sql.SQLException
 
 
-class PersonRepository: CrudRespository<Person, Long> {
+class PersonRepository : CrudRespository<Person, Long> {
     // Si quiero devolver la excepcion debo anotarlas como throws
     @Throws(SQLException::class)
     override fun findAll(): List<Person> {
@@ -24,19 +24,19 @@ class PersonRepository: CrudRespository<Person, Long> {
     @Throws(SQLException::class) // No es obligatorio, pero es util para compatibilidad con Java
     override fun findById(id: Long): Person {
         return HibernateController.manager
-            .find(Person::class.java, id) ?:
-            throw SQLException("Error PersonRepository findById no existe Person con ID: $id")
+            .find(Person::class.java, id)
+            ?: throw SQLException("Error PersonRepository findById no existe Person con ID: $id")
     }
 
     @Throws(SQLException::class)
     override fun save(item: Person): Person {
         try {
-            HibernateController.transaction.begin();
+            HibernateController.transaction.begin()
             HibernateController.manager.persist(item)
-            HibernateController.transaction.commit();
+            HibernateController.transaction.commit()
             return item
         } catch (e: Exception) {
-            HibernateController.transaction.rollback();
+            HibernateController.transaction.rollback()
             throw SQLException("Error PersonRepository al insertar Person en BD: ${e.message}: ${e.message}")
         }
     }
@@ -44,13 +44,13 @@ class PersonRepository: CrudRespository<Person, Long> {
     @Throws(SQLException::class)
     override fun update(item: Person): Person {
         try {
-            HibernateController.transaction.begin();
+            HibernateController.transaction.begin()
             HibernateController.manager.merge(item)
-            HibernateController.transaction.commit();
+            HibernateController.transaction.commit()
             return item
         } catch (e: Exception) {
-            HibernateController.transaction.rollback();
-            throw SQLException("Error PersonRepository update al actualizar Person ID: ${item.id}: ${e.message}");
+            HibernateController.transaction.rollback()
+            throw SQLException("Error PersonRepository update al actualizar Person ID: ${item.id}: ${e.message}")
         }
     }
 
@@ -61,12 +61,12 @@ class PersonRepository: CrudRespository<Person, Long> {
             // Exception Removing a detached instance model.
             // Deben estar en la misma sesion lo que buscas y borras
             val personToDelete = HibernateController.manager.find(Person::class.java, t.id)
-            HibernateController.transaction.begin();
+            HibernateController.transaction.begin()
             HibernateController.manager.remove(personToDelete)
-            HibernateController.transaction.commit();
+            HibernateController.transaction.commit()
             return personToDelete
         } catch (e: Exception) {
-            HibernateController.transaction.rollback();
+            HibernateController.transaction.rollback()
             throw SQLException("Error PersonRepository delete al actualizar Person ID: ${t.id}: ${e.message}")
         }
     }

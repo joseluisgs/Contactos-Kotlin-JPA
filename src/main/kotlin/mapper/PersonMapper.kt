@@ -3,10 +3,10 @@ package mapper
 import dto.PersonDTO
 import model.Person
 
-class PersonMapper: BaseMapper<Person, PersonDTO>() {
+class PersonMapper : BaseMapper<Person, PersonDTO>() {
 
     override fun fromDTO(item: PersonDTO): Person {
-        val addressMapper = AddressMapper();
+        val addressMapper = AddressMapper()
         return Person(
             id = item.id,
             name = item.name,
@@ -18,7 +18,7 @@ class PersonMapper: BaseMapper<Person, PersonDTO>() {
     }
 
     override fun toDTO(item: Person): PersonDTO {
-        val addressMapper = AddressMapper();
+        val addressMapper = AddressMapper()
         return PersonDTO(
             id = item.id,
             name = item.name,

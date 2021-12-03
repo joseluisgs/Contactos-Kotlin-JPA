@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
 
     <!-- Nombre de la unidad de persistencia -->
     <persistence-unit name="default">
-        <description> Ejemplo Crud básico Hibernate JPA</description>
+        <description>Ejemplo Crud básico Hibernate JPA</description>
 
         <!-- Indicamos el “provider” que es la implementación de JPA que estamos usando.
        En nuestro ejemplo hibernate, pero existen otros proveedores como EclipseLink: -->
@@ -23,8 +23,8 @@
 
         <!-- Añadimos las propiedades de conexión a la base de datos H2 -->
         <properties>
-            <property name="hibernate.connection.driver_class" value="org.h2.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:h2:mem:default" />
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:default"/>
             <property name="hibernate.connection.user" value="sa"/>
             <property name="hibernate.connection.password" value=""/>
 

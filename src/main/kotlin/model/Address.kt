@@ -14,7 +14,7 @@ data class Address(
     @Column(nullable = false)
     var city: String,
 
-) {
+    ) {
     // Otros datos que no costruyo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

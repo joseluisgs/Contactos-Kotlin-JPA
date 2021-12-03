@@ -2,9 +2,8 @@ package mapper
 
 import dto.AddressDTO
 import model.Address
-import model.Person
 
-class AddressMapper: BaseMapper<Address, AddressDTO>() {
+class AddressMapper : BaseMapper<Address, AddressDTO>() {
     override fun fromDTO(item: AddressDTO): Address {
         return Address(
             item.street,

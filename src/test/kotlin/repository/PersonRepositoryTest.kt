@@ -2,7 +2,8 @@ import model.Address
 import model.Person
 import model.PhoneNumber
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import repository.PersonRepository
 import java.sql.SQLException
 import java.time.Instant
@@ -63,7 +64,7 @@ class BinaryTest {
     @DisplayName("True is True")
     @Order(1)
     fun trueIsTrue() {
-      assertTrue(true)
+        assertTrue(true)
     }
 
     @Test
@@ -84,15 +85,15 @@ class BinaryTest {
         // comprobamos que se ha salvado
         assertAll(
             // person 01
-            {  assertEquals(p1.name, res1.name) },
-            {  assertEquals(p1.email, res1.email) },
-            {  assertEquals(p1.myPhoneNumbers?.size, res1.myPhoneNumbers?.size) },
-            {  assertEquals(p1.myAddress?.size, res1.myAddress?.size) },
+            { assertEquals(p1.name, res1.name) },
+            { assertEquals(p1.email, res1.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res1.myPhoneNumbers?.size) },
+            { assertEquals(p1.myAddress?.size, res1.myAddress?.size) },
             // person 02
-            {  assertEquals(p2.name, res2.name) },
-            {  assertEquals(p2.email, res2.email) },
-            {  assertEquals(p2.myPhoneNumbers?.size, res2.myPhoneNumbers?.size) },
-            {  assertEquals(p2.myAddress?.size, res2.myAddress?.size) }
+            { assertEquals(p2.name, res2.name) },
+            { assertEquals(p2.email, res2.email) },
+            { assertEquals(p2.myPhoneNumbers?.size, res2.myPhoneNumbers?.size) },
+            { assertEquals(p2.myAddress?.size, res2.myAddress?.size) }
         )
 
         // Excepción
@@ -126,7 +127,7 @@ class BinaryTest {
     @DisplayName("Repository FindById Test")
     @Order(5)
     fun findByIdTest() {
-        val res= repository.findById(p1.id)
+        val res = repository.findById(p1.id)
 
         assertAll(
             { assertEquals(p1.name, res.name) },
@@ -155,7 +156,7 @@ class BinaryTest {
         val direccion = Address("Calle${Instant.now()}", "28000", "Madrid", p1)
         p1.myAddress?.add(direccion)
 
-        var res= repository.update(p1)
+        val res = repository.update(p1)
         assertAll(
             { assertEquals(p1.name, res.name) },
             { assertEquals(p1.email, res.email) },
@@ -176,7 +177,7 @@ class BinaryTest {
     @DisplayName("Repository Delete Test")
     @Order(7)
     fun deleteTest() {
-        val res= repository.delete(p2)
+        val res = repository.delete(p2)
         assertAll(
             { assertEquals(p2.name, res.name) },
             { assertEquals(p2.email, res.email) },

@@ -8,7 +8,7 @@ import java.sql.SQLException
 
 // Podríamos inyectar la dependencia en el constructor o con setter, pero se la meteré en el servicio
 // class PersonService(val repository: PersonRepository): CrudService<Person>
-class PersonService(): CrudService<PersonRepository, Person, PersonDTO, PersonMapper> {
+class PersonService : CrudService<PersonRepository, Person, PersonDTO, PersonMapper> {
 
     override val repository: PersonRepository = PersonRepository()
     override val mapper: PersonMapper = PersonMapper()

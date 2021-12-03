@@ -1,6 +1,5 @@
 package dto
 
-import model.Address
 import model.PhoneNumber
 
 // Solo lectura una vez inicializado
