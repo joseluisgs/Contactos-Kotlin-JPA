@@ -95,6 +95,11 @@ fun runControllerToString() {
     list = PersonController.findAll()
     list?.forEach { println(it) }
     println()
+
+    println("Find Address by Person")
+    val addressList = PersonController.findAddress(p1)
+    addressList?.forEach { println(it) }
+    println()
 }
 
 fun runControllerJson() {
@@ -168,6 +173,11 @@ fun runControllerJson() {
     json = PersonController.findAllJson()
     println(json)
     println()
+
+    println("Find Address by Person JSON")
+    json = PersonController.findAddressJson(p1)
+    println(json)
+    println()
 }
 
 fun runControllerIOJson() {
@@ -202,7 +212,7 @@ fun runControllerIOJson() {
     println(json)
     println()
 
-    println("Find by ID JSON")
+    println("Find by ID INPUT JSON")
     // Realmente aquí nos llegan los datos como JSON, pero no sabemos que ID vamos a buscar
     val id = """
         {
@@ -211,6 +221,11 @@ fun runControllerIOJson() {
     """.trimIndent()
 
     json = PersonController.findByIdInputJson(id)
+    println(json)
+    println()
+
+    println("Find Address by Person JSON")
+    json = PersonController.findAddressInputJson(p)
     println(json)
     println()
 
@@ -238,14 +253,14 @@ fun runControllerIOJson() {
     println(json)
     println()
 
-    println("Delete JSON")
+    println("Delete INPUT JSON")
     json = PersonController.deleteInputJson(p)
     println(json)
     println()
 
     println("Find All JSON")
-    //json = PersonController.findAllJson()
-    //println(json)
-    //println()
+    println()
+
+
 
 }

@@ -1,6 +1,8 @@
 package service
 
+import dto.AddressDTO
 import dto.PersonDTO
+import mapper.AddressMapper
 import mapper.PersonMapper
 import model.Person
 import repository.PersonRepository
@@ -38,5 +40,11 @@ class PersonService : CrudService<PersonRepository, Person, PersonDTO, PersonMap
     @Throws(SQLException::class)
     override fun delete(item: Person): PersonDTO {
         return mapper.toDTO(repository.delete(item))
+    }
+
+    @Throws(SQLException::class)
+    fun findAddress(item: Person): List<AddressDTO> {
+        val addressMapper = AddressMapper()
+        return addressMapper.toDTO(repository.findAddress(item))
     }
 }

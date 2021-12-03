@@ -73,7 +73,7 @@ class PersonRepository : CrudRespository<Person, Long> {
     }
 
     @Throws(SQLException::class)
-    fun findAddress(person: Person): List<Address>? {
+    fun findAddress(person: Person): List<Address> {
         try {
             val query = HibernateController.manager
                 .createNamedQuery(

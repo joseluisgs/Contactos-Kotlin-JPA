@@ -2,6 +2,7 @@ package controller
 
 import converter.PersonJsonConverter
 import converter.ResponseJsonConverter
+import dto.AddressDTO
 import dto.PersonDTO
 import mapper.PersonMapper
 import model.Person
@@ -61,6 +62,15 @@ object PersonController : IController<PersonService> {
         }
     }
 
+    fun findAddress(person: Person): List<AddressDTO>? {
+        return try {
+            service.findAddress(person)
+        } catch (e: Exception) {
+            System.err.println(e.localizedMessage)
+            null
+        }
+    }
+
     // JSON
     fun findAllJson(): String? {
         return try {
@@ -97,6 +107,14 @@ object PersonController : IController<PersonService> {
     fun deleteJson(person: Person): String? {
         return try {
             ResponseJsonConverter.toJson(Response(200, service.delete(person)))
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
+        }
+    }
+
+    fun findAddressJson(person: Person): String? {
+        return try {
+            ResponseJsonConverter.toJson(Response(200, service.findAddress(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
@@ -158,6 +176,19 @@ object PersonController : IController<PersonService> {
             person.myAddress = null
             // person.myPhoneNumbers = null
             ResponseJsonConverter.toJson(Response(200, service.delete(person)))
+        } catch (e: Exception) {
+            ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
+        }
+    }
+
+    fun findAddressInputJson(json: String): String? {
+        val personDTO = PersonJsonConverter.fromJson(json)
+        // Podríamos buscarlo y actualizarlo.... Mira Delete
+        val person = mapper.fromDTO(personDTO)
+        person.myAddress = null
+        // person.myPhoneNumbers = null
+        return try {
+            ResponseJsonConverter.toJson(Response(200, service.findAddress(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
         }
