@@ -18,7 +18,7 @@ data class Address(
     // Otros datos que no costruyo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
+    val id: Long = 0
 
     @JoinColumn(
         name = "address_id",

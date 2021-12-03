@@ -64,7 +64,7 @@ object PersonController: IController<PersonService> {
     // JSON
     fun findAllJson(): String? {
         return try {
-            ResponseJsonConverter.toJson(service.findAll()?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.findAll()))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -72,7 +72,7 @@ object PersonController: IController<PersonService> {
 
     fun findByIdJson(id: Long): String? {
         return try {
-            ResponseJsonConverter.toJson(service.findById(id)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.findById(id)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -80,7 +80,7 @@ object PersonController: IController<PersonService> {
 
     fun saveJson(person: Person): String? {
         return try {
-            ResponseJsonConverter.toJson(service.save(person)?.let { Response(201, it) })
+            ResponseJsonConverter.toJson(Response(201, service.save(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -88,7 +88,7 @@ object PersonController: IController<PersonService> {
 
     fun updateJson(person: Person): String? {
         return try {
-            ResponseJsonConverter.toJson(service.update(person)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.update(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -96,7 +96,7 @@ object PersonController: IController<PersonService> {
 
     fun deleteJson(person: Person): String? {
         return try {
-            ResponseJsonConverter.toJson(service.delete(person)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.delete(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -117,7 +117,7 @@ object PersonController: IController<PersonService> {
             // Salvamos
             person.myAddress = null
             // person.myPhoneNumbers = null
-            ResponseJsonConverter.toJson(service.save(person)?.let { Response(201, it) })
+            ResponseJsonConverter.toJson(Response(201, service.save(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -129,7 +129,7 @@ object PersonController: IController<PersonService> {
             val jsonObj = JSONObject(id)
             val map = jsonObj.toMap()
             val personId = (map["id"] as Int).toLong()
-            ResponseJsonConverter.toJson(service.findById(personId)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.findById(personId)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -143,7 +143,7 @@ object PersonController: IController<PersonService> {
         val person = mapper.fromDTO(personDTO)
         person.myAddress = null
         // person.myPhoneNumbers = null
-            ResponseJsonConverter.toJson(service.update(person)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.update(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }
@@ -157,7 +157,7 @@ object PersonController: IController<PersonService> {
             val person = mapper.fromDTO(personDTO)
             person.myAddress = null
             // person.myPhoneNumbers = null
-            ResponseJsonConverter.toJson(service.delete(person)?.let { Response(200, it) })
+            ResponseJsonConverter.toJson(Response(200, service.delete(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500,e.localizedMessage))
         }

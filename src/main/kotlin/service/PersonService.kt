@@ -16,7 +16,7 @@ class PersonService(): CrudService<PersonRepository, Person, PersonDTO, PersonMa
     // De la misma manera, si queremos devolver excepciones tipificadas para java las anotamos
     // De nuevo no es obligatorio anotarlas
     @Throws(SQLException::class)
-    override fun findAll(): List<PersonDTO>? {
+    override fun findAll(): List<PersonDTO> {
         return mapper.toDTO(repository.findAll())
     }
 
