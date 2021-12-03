@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 @NamedQueries(
     NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE p.name = :name")
+    NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE p.name = :name"),
 )
 data class Person(
     // Mis constructor primario

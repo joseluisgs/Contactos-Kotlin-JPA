@@ -22,5 +22,5 @@ interface CrudRespository<T, ID> {
 
     // Elimina
     @Throws(SQLException::class)
-    fun delete(t: T): T?
+    fun delete(item: T): T?
 }

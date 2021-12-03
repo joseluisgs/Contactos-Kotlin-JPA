@@ -12,7 +12,7 @@ import service.PersonService
 object PersonController : IController<PersonService> {
     // Mi servicio principal
     override val service = PersonService()
-    val mapper: PersonMapper = PersonMapper()
+    private val mapper: PersonMapper = PersonMapper()
     // Obtienes todos
 
     // Este lo dejo porque lo necesito

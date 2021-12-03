@@ -3,6 +3,7 @@ package model
 import javax.persistence.*
 
 @Entity
+@NamedQuery(name = "Address.findByPerson", query = "SELECT a FROM Address a where a.person.id = :userId")
 data class Address(
     // Mi constructor primario
     @Column(nullable = false)

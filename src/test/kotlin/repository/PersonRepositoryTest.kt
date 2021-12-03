@@ -174,8 +174,19 @@ class BinaryTest {
     }
 
     @Test
-    @DisplayName("Repository Delete Test")
+    @DisplayName("Repository Find Address of a Person Test")
     @Order(7)
+    fun findAddressOfPersonTest() {
+        val res = repository.findAddress(p2)
+        assertAll(
+            { assertEquals(1, res?.size) }
+
+        )
+    }
+
+    @Test
+    @DisplayName("Repository Delete Test")
+    @Order(8)
     fun deleteTest() {
         val res = repository.delete(p2)
         assertAll(
