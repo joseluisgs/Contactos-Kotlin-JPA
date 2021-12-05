@@ -10,4 +10,9 @@ object HibernateController {
     val manager: EntityManager = entityManagerFactory.createEntityManager()
     val transaction: EntityTransaction = manager.transaction
 
+    fun truncate(table: String) {
+        transaction.begin()
+        manager.createNativeQuery("TRUNCATE TABLE $table").executeUpdate()
+        transaction.commit()
+    }
 }

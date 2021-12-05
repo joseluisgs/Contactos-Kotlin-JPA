@@ -3,9 +3,9 @@ package mapper
 import model.Address
 import model.Person
 import model.PhoneNumber
-import java.time.Instant
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
+import java.time.Instant
 
 @DisplayName("Suite Test AddressMapper")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -42,18 +42,18 @@ class AddressMapperTest {
         val res = mapper.toDTO(address)
 
         assertAll(
-            { assertEquals(address?.street, res.street) },
-            { assertEquals(address?.city, res.city) },
-            { assertEquals(address?.postalCode, res.postalCode) },
+            { assertEquals(address.street, res.street) },
+            { assertEquals(address.city, res.city) },
+            { assertEquals(address.postalCode, res.postalCode) },
         )
     }
 
-   @DisplayName("Test List Address to DTO")
+    @DisplayName("Test List Address to DTO")
     @Order(2)
     @Test
     fun testListToDTOTest() {
-       val list = p1.myAddress?.toList()!!
-       val address = p1.myAddress!!.first()
+        val list = p1.myAddress?.toList()!!
+        val address = p1.myAddress!!.first()
 
         val res = mapper.toDTO(list)
         assertAll(

@@ -17,38 +17,40 @@ class PersonRepositoryTest {
     private val repository = PersonRepository()
 
     // Mi variable de prueba
-    private val p1 = Person(
-        "Juan${Instant.now()}",
-        "juan${Instant.now()}@juan.es",
-        setOf(
-            PhoneNumber("202-555-0171"),
-            PhoneNumber("202-555-0102")
-        ).toMutableSet(), // Son mutables porque los quiero cambiar
-        setOf(
-            Address("Luis Vives${Instant.now()}", "28819", "Leganes")
-        ).toMutableSet(), //
-    )
+    private lateinit var p1: Person
+    private lateinit var p2: Person
+    private lateinit var p3: Person
 
-    private val p2 = Person(
-        "Pepe ${Instant.now()}",
-        "Pepe${Instant.now()}@Pepe.es",
-        setOf(
-            PhoneNumber("666-555-0171")
-        ).toMutableSet(), // Son mutables porque los quiero cambiar
-        setOf(
-            Address("Zazaquemada${Instant.now()}", "28916", "Leganes")
-        ).toMutableSet()
-    )
+    private fun initMyData() {
+        p1 = Person(
+            "Juan${Instant.now()}",
+            "juan${Instant.now()}@juan.es",
+            setOf(
+                PhoneNumber("202-555-0171"),
+                PhoneNumber("202-555-0102")
+            ).toMutableSet(), // Son mutables porque los quiero cambiar
+            setOf(
+                Address("Luis Vives${Instant.now()}", "28819", "Leganes")
+            ).toMutableSet(), //
+        )
 
-    private val p3 = Person(
-        "NoExiste${Instant.now()}",
-        null,
-        null,
-        null
-    )
+        p2 = Person(
+            "Pepe ${Instant.now()}",
+            "Pepe${Instant.now()}@Pepe.es",
+            setOf(
+                PhoneNumber("666-555-0171")
+            ).toMutableSet(), // Son mutables porque los quiero cambiar
+            setOf(
+                Address("Zazaquemada${Instant.now()}", "28916", "Leganes")
+            ).toMutableSet()
+        )
 
-    @BeforeAll
-    fun setUp() {
+        p3 = Person(
+            "NoExiste${Instant.now()}",
+            null,
+            null,
+            null
+        )
         // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
         p1.myAddress?.forEach {
             it.person = p1
@@ -59,6 +61,14 @@ class PersonRepositoryTest {
 
         p3.id = -1
     }
+
+    @BeforeAll
+    fun setUp() {
+        initMyData()
+        //val h2Util = H2Util()
+        //h2Util.resetDatabase()
+    }
+
 
     @Test
     @DisplayName("True is True")

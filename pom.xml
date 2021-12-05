@@ -107,6 +107,17 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Utildiades para jugar con los test y H2
+        https://github.com/cronn/test-utils#h2util
+
+        <dependency>
+            <groupId>de.cronn</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>0.2.0</version>
+            <scope>test</scope>
+        </dependency>
+         -->
+
         <!-- GSon Json -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

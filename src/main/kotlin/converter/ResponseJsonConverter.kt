@@ -1,7 +1,6 @@
 package converter
 
 import com.google.gson.GsonBuilder
-import dto.PersonDTO
 import response.Response
 
 object ResponseJsonConverter : IJSonConverter<Response, String> {

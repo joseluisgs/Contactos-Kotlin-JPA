@@ -2,17 +2,13 @@ package converter
 
 import dto.PersonDTO
 import mapper.PersonMapper
-import model.Address
 import model.Person
-import model.PhoneNumber
 import org.json.JSONArray
 import org.json.JSONObject
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import response.Response
 
 @DisplayName("Suite Test PersonJsonConverter")
 //@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -89,7 +85,7 @@ class PersonJsonConverterTest {
         val resDTO = PersonJsonConverter.fromJson(jsonString)
 
         assertAll(
-            { assertEquals(dto, resDTO)},
+            { assertEquals(dto, resDTO) },
             { assertEquals(dto.id, resDTO.id) },
             { assertEquals(dto.name, resDTO.name) },
             { assertEquals(dto.email, resDTO.email) }

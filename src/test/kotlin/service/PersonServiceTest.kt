@@ -1,14 +1,11 @@
 package service
 
-import dto.PersonDTO
-import mapper.PersonMapper
 import model.Address
 import model.Person
 import model.PhoneNumber
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.mockito.Mock
 import org.mockito.Mockito
 import repository.PersonRepository
 import java.sql.SQLException
@@ -21,33 +18,68 @@ class PersonServiceTest {
 
     // Dependencia
     private lateinit var personRepository: PersonRepository
+
     // SUT: System Under Test
     private lateinit var personService: PersonService
 
     // Mi variable de prueba
-    val p1 = Person(
-        "Juan${Instant.now()}",
-        "juan${Instant.now()}@juan.es",
-        setOf(
-            PhoneNumber("202-555-0171"),
-            PhoneNumber("202-555-0102")
-        ).toMutableSet(), // Son mutables porque los quiero cambiar
-        setOf(
-            Address("Luis Vives${Instant.now()}", "28819", "Leganes")
-        ).toMutableSet(), //
-    )
+    private lateinit var p1: Person
+    private lateinit var p2: Person
+    private lateinit var p3: Person
 
-    // Mapper
-    //val mapper = PersonMapper()
+    private fun initMyData() {
+        p1 = Person(
+            "Juan${Instant.now()}",
+            "juan${Instant.now()}@juan.es",
+            setOf(
+                PhoneNumber("202-555-0171"),
+                PhoneNumber("202-555-0102")
+            ).toMutableSet(), // Son mutables porque los quiero cambiar
+            setOf(
+                Address("Luis Vives${Instant.now()}", "28819", "Leganes")
+            ).toMutableSet(), //
+        )
+
+        p2 = Person(
+            "Pepe ${Instant.now()}",
+            "Pepe${Instant.now()}@Pepe.es",
+            setOf(
+                PhoneNumber("666-555-0171")
+            ).toMutableSet(), // Son mutables porque los quiero cambiar
+            setOf(
+                Address("Zazaquemada${Instant.now()}", "28916", "Leganes")
+            ).toMutableSet()
+        )
+
+        p3 = Person(
+            "NoExiste${Instant.now()}",
+            null,
+            null,
+            null
+        )
+        // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
+        p1.myAddress?.forEach {
+            it.person = p1
+        }
+        p2.myAddress?.forEach {
+            it.person = p2
+        }
+
+        p3.id = -1
+    }
 
 
     @BeforeAll
     fun setUp() {
+        initMyData()
+        // Limpio la base de datos para estar lista
+        //val h2Util = H2Util()
+        //h2Util.resetDatabase()
+
         //Creamos el mock... Sintáxis mock con Mockito
         personRepository = Mockito.mock(PersonRepository::class.java)
         // Creamos el SUT con su mock
         personService = PersonService(personRepository)
-
 
 
         // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
@@ -77,7 +109,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.findAll())
             .thenReturn(emptyList())
         // When: Actuamos
-        val res=this.personService.findAll()
+        val res = this.personService.findAll()
         // Then, assert de JUnit
         assertTrue(res.isEmpty())
 
@@ -94,7 +126,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.findAll())
             .thenReturn(list)
         // When: Actuamos
-        val res=this.personService.findAll()
+        val res = this.personService.findAll()
         // Then, assert de JUnit
         assertAll(
             { assertEquals(1, res.size) },
@@ -116,7 +148,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.findById(p1.id))
             .thenReturn(p1)
         // When: Actuamos
-        val res=this.personService.findById(p1.id)
+        val res = this.personService.findById(p1.id)
         // Then, assert de JUnit
         assertAll(
             { assertEquals(p1.name, res.name) },
@@ -137,7 +169,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.save(p1))
             .thenReturn(p1)
         // When: Actuamos
-        val res=this.personService.save(p1)
+        val res = this.personService.save(p1)
         // Then, assert de JUnit
         assertAll(
             { assertEquals(p1.name, res.name) },
@@ -158,7 +190,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.update(p1))
             .thenReturn(p1)
         // When: Actuamos
-        val res=this.personService.update(p1)
+        val res = this.personService.update(p1)
         // Then, assert de JUnit
         assertAll(
             { assertEquals(p1.name, res.name) },
@@ -179,7 +211,7 @@ class PersonServiceTest {
         Mockito.`when`(personRepository.delete(p1))
             .thenReturn(p1)
         // When: Actuamos
-        val res=this.personService.delete(p1)
+        val res = this.personService.delete(p1)
         // Then, assert de JUnit
         assertAll(
             { assertEquals(p1.name, res.name) },

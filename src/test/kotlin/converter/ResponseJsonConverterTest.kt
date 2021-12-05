@@ -1,12 +1,11 @@
 package converter
 
-import dto.PersonDTO
 import org.json.JSONObject
-import org.junit.jupiter.api.*
-import response.Response
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import response.Response
 
 @DisplayName("Suite Test ResponseJsonConverter")
 //@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
