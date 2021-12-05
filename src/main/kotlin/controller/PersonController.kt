@@ -146,9 +146,8 @@ object PersonController : IController<PersonService> {
     fun findByIdInputJson(id: String): String? {
         return try {
             // transformamos el ID
-            val jsonObj = JSONObject(id)
-            val map = jsonObj.toMap()
-            val personId = (map["id"] as Int).toLong()
+            val json = JSONObject(id).toMap()
+            val personId = (json["id"] as Int).toLong()
             ResponseJsonConverter.toJson(Response(200, service.findById(personId)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500, e.localizedMessage))

@@ -12,7 +12,7 @@ import java.time.Instant
 @DisplayName("Suite Test PersonRepository")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
-class BinaryTest {
+class PersonRepositoryTest {
     // Mi repository
     private val repository = PersonRepository()
 

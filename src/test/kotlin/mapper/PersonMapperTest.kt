@@ -4,6 +4,7 @@ import model.Address
 import model.Person
 import model.PhoneNumber
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import java.time.Instant
 
 @DisplayName("Suite Test PersonMapper")
@@ -39,10 +40,10 @@ class PersonMapperTest {
     fun testObjectToDTOTest() {
         val res = mapper.toDTO(p1)
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) }
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res.address?.size) }
         )
     }
 
@@ -53,11 +54,11 @@ class PersonMapperTest {
         val list = listOf(p1)
         val res = mapper.toDTO(list)
         assertAll(
-            { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(p1.name, res[0].name) },
-            { Assertions.assertEquals(p1.email, res[0].email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res[0].address?.size) }
+            { assertEquals(list.size, res.size) },
+            { assertEquals(p1.name, res[0].name) },
+            { assertEquals(p1.email, res[0].email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res[0].address?.size) }
         )
     }
 
@@ -68,10 +69,10 @@ class PersonMapperTest {
         val dto = mapper.toDTO(p1)
         val res = mapper.fromDTO(dto)
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.myPhoneNumbers?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.myAddress?.size) }
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.myPhoneNumbers?.size) },
+            { assertEquals(p1.myAddress?.size, res.myAddress?.size) }
         )
     }
 
@@ -83,11 +84,11 @@ class PersonMapperTest {
         val dto = mapper.toDTO(list)
         val res = mapper.fromDTO(dto)
         assertAll(
-            { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(p1.name, res[0].name) },
-            { Assertions.assertEquals(p1.email, res[0].email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].myPhoneNumbers?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res[0].myAddress?.size) }
+            { assertEquals(list.size, res.size) },
+            { assertEquals(p1.name, res[0].name) },
+            { assertEquals(p1.email, res[0].email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res[0].myPhoneNumbers?.size) },
+            { assertEquals(p1.myAddress?.size, res[0].myAddress?.size) }
         )
     }
 }

@@ -3,13 +3,14 @@ package mapper
 import model.Address
 import model.Person
 import model.PhoneNumber
-import org.junit.jupiter.api.*
 import java.time.Instant
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertEquals
 
-@DisplayName("Suite Test PersonMapper")
+@DisplayName("Suite Test AddressMapper")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
-class AddresMapperTest {
+class AddressMapperTest {
 
     private val mapper = AddressMapper()
 
@@ -41,9 +42,9 @@ class AddresMapperTest {
         val res = mapper.toDTO(address)
 
         assertAll(
-            { Assertions.assertEquals(address?.street, res.street) },
-            { Assertions.assertEquals(address?.city, res.city) },
-            { Assertions.assertEquals(address?.postalCode, res.postalCode) },
+            { assertEquals(address?.street, res.street) },
+            { assertEquals(address?.city, res.city) },
+            { assertEquals(address?.postalCode, res.postalCode) },
         )
     }
 
@@ -56,10 +57,10 @@ class AddresMapperTest {
 
         val res = mapper.toDTO(list)
         assertAll(
-            { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(address.street, res[0].street) },
-            { Assertions.assertEquals(address.city, res[0].city) },
-            { Assertions.assertEquals(address.postalCode, res[0].postalCode) },
+            { assertEquals(list.size, res.size) },
+            { assertEquals(address.street, res[0].street) },
+            { assertEquals(address.city, res[0].city) },
+            { assertEquals(address.postalCode, res[0].postalCode) },
         )
     }
 
@@ -71,9 +72,9 @@ class AddresMapperTest {
         val dto = mapper.toDTO(address)
         val res = mapper.fromDTO(dto)
         assertAll(
-            { Assertions.assertEquals(address.street, res.street) },
-            { Assertions.assertEquals(address.city, res.city) },
-            { Assertions.assertEquals(address.postalCode, res.postalCode) },
+            { assertEquals(address.street, res.street) },
+            { assertEquals(address.city, res.city) },
+            { assertEquals(address.postalCode, res.postalCode) },
         )
     }
 
@@ -86,10 +87,10 @@ class AddresMapperTest {
         val dto = mapper.toDTO(list)
         val res = mapper.fromDTO(dto)
         assertAll(
-            { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(address.street, res[0].street) },
-            { Assertions.assertEquals(address.city, res[0].city) },
-            { Assertions.assertEquals(address.postalCode, res[0].postalCode) },
+            { assertEquals(list.size, res.size) },
+            { assertEquals(address.street, res[0].street) },
+            { assertEquals(address.city, res[0].city) },
+            { assertEquals(address.postalCode, res[0].postalCode) },
         )
     }
 }
