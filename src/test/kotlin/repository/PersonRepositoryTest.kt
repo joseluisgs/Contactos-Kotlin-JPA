@@ -100,15 +100,8 @@ class BinaryTest {
             { assertEquals(p2.myPhoneNumbers?.size, res2.myPhoneNumbers?.size) },
             { assertEquals(p2.myAddress?.size, res2.myAddress?.size) }
         )
-
-        // Excepción
-        val ex = assertThrows<SQLException> {
-            repository.save(p3)
-        }.message
-        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
-
-
     }
+
 
     @Test
     @DisplayName("Repository FindAll With Persons Test")
@@ -140,15 +133,6 @@ class BinaryTest {
             { assertEquals(p1.myPhoneNumbers?.size, res.myPhoneNumbers?.size) },
             { assertEquals(p1.myAddress?.size, res.myAddress?.size) }
         )
-
-        // Excepción
-        val ex = assertThrows<SQLException> {
-            repository.findById(p3.id)
-        }.message
-        // La otra
-        // val thrown = assertThrows(SQLException::class.java, { repository.findById(-11L) }, "SQL error was expected")
-        //assertEquals("Error PersonRepository findById no existe Person con ID: -11", ex)
-        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -169,13 +153,6 @@ class BinaryTest {
             { assertEquals(p1.myAddress?.size, res.myAddress?.size) },
             { res.myAddress?.contains(direccion)?.let { assertTrue(it) } }
         )
-
-        // Excepción
-        p1.id = -11L
-        val ex = assertThrows<SQLException> {
-            repository.update(p1)
-        }.message
-        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -200,13 +177,64 @@ class BinaryTest {
             { assertEquals(p2.myPhoneNumbers?.size, res.myPhoneNumbers?.size) },
             { assertEquals(p2.myAddress?.size, res.myAddress?.size) }
         )
+    }
 
-        // Excepción -- TODO Sería ideal otro test!!! y no mezclar
+    @Test
+    @DisplayName("Repository Save Exception Test")
+    @Order(9)
+    fun saveExceptionTest() {
+        // Excepción
+        val ex = assertThrows<SQLException> {
+            repository.save(p3)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Repository FindById Exception Test")
+    @Order(10)
+    fun findByIdExceptionTest() {
+        // Excepción
+        val ex = assertThrows<SQLException> {
+            repository.findById(p3.id)
+        }.message
+        // La otra
+        // val thrown = assertThrows(SQLException::class.java, { repository.findById(-11L) }, "SQL error was expected")
+        //assertEquals("Error PersonRepository findById no existe Person con ID: -11", ex)
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Repository Update Exception Test")
+    @Order(11)
+    fun updateExceptionTest() {
+        // Excepción
+        p1.id = -11L
+        val ex = assertThrows<SQLException> {
+            repository.update(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Repository Delete Exception Test")
+    @Order(12)
+    fun deleteExceptionTest() {
+        // Excepción
         val ex = assertThrows<SQLException> {
             repository.delete(p3)
         }.message
         ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
-
+   /* @Test
+    @DisplayName("Repository findAddres Exception Test")
+    @Order(13)
+    fun findAddressExceptionTest() {
+        // Excepción
+        val ex = assertThrows<SQLException> {
+            repository.findAddress(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
+    }*/
 }
