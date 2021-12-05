@@ -14,10 +14,10 @@ import java.time.Instant
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
 class BinaryTest {
     // Mi repository
-    val repository = PersonRepository()
+    private val repository = PersonRepository()
 
     // Mi variable de prueba
-    val p1 = Person(
+    private val p1 = Person(
         "Juan${Instant.now()}",
         "juan${Instant.now()}@juan.es",
         setOf(
@@ -29,7 +29,7 @@ class BinaryTest {
         ).toMutableSet(), //
     )
 
-    val p2 = Person(
+    private val p2 = Person(
         "Pepe ${Instant.now()}",
         "Pepe${Instant.now()}@Pepe.es",
         setOf(
@@ -40,7 +40,7 @@ class BinaryTest {
         ).toMutableSet()
     )
 
-    val p3 = Person(
+    private val p3 = Person(
         "NoExiste${Instant.now()}",
         null,
         null,

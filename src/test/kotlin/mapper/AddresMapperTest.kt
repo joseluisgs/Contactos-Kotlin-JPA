@@ -9,9 +9,9 @@ import java.time.Instant
 @DisplayName("Suite Test PersonMapper")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
-class PersonMapperTest {
+class AddresMapperTest {
 
-    private val mapper = PersonMapper()
+    private val mapper = AddressMapper()
 
     private val p1 = Person(
         "Juan${Instant.now()}",
@@ -33,45 +33,47 @@ class PersonMapperTest {
         }
     }
 
-    @DisplayName("Test Object Person to DTO")
+    @DisplayName("Test Object Address to DTO")
     @Order(1)
     @Test
     fun testObjectToDTOTest() {
-        val res = mapper.toDTO(p1)
+        val address = p1.myAddress!!.first()
+        val res = mapper.toDTO(address)
+
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) }
+            { Assertions.assertEquals(address?.street, res.street) },
+            { Assertions.assertEquals(address?.city, res.city) },
+            { Assertions.assertEquals(address?.postalCode, res.postalCode) },
         )
     }
 
-    @DisplayName("Test List Person to DTO")
+   @DisplayName("Test List Address to DTO")
     @Order(2)
     @Test
     fun testListToDTOTest() {
-        val list = listOf(p1)
+       val list = p1.myAddress?.toList()!!
+       val address = p1.myAddress!!.first()
+
         val res = mapper.toDTO(list)
         assertAll(
             { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(p1.name, res[0].name) },
-            { Assertions.assertEquals(p1.email, res[0].email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res[0].address?.size) }
+            { Assertions.assertEquals(address.street, res[0].street) },
+            { Assertions.assertEquals(address.city, res[0].city) },
+            { Assertions.assertEquals(address.postalCode, res[0].postalCode) },
         )
     }
 
-    @DisplayName("Test Object DTO from DTO")
+    @DisplayName("Test Address DTO from DTO")
     @Order(3)
     @Test
     fun testDTOFromDTOTest() {
-        val dto = mapper.toDTO(p1)
+        val address = p1.myAddress?.first()!!
+        val dto = mapper.toDTO(address)
         val res = mapper.fromDTO(dto)
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.myPhoneNumbers?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.myAddress?.size) }
+            { Assertions.assertEquals(address.street, res.street) },
+            { Assertions.assertEquals(address.city, res.city) },
+            { Assertions.assertEquals(address.postalCode, res.postalCode) },
         )
     }
 
@@ -79,15 +81,15 @@ class PersonMapperTest {
     @Order(4)
     @Test
     fun testListDTOFromDTOTest() {
-        val list = listOf(p1)
+        val address = p1.myAddress?.first()!!
+        val list = listOf(address)
         val dto = mapper.toDTO(list)
         val res = mapper.fromDTO(dto)
         assertAll(
             { Assertions.assertEquals(list.size, res.size) },
-            { Assertions.assertEquals(p1.name, res[0].name) },
-            { Assertions.assertEquals(p1.email, res[0].email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].myPhoneNumbers?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res[0].myAddress?.size) }
+            { Assertions.assertEquals(address.street, res[0].street) },
+            { Assertions.assertEquals(address.city, res[0].city) },
+            { Assertions.assertEquals(address.postalCode, res[0].postalCode) },
         )
     }
 }
