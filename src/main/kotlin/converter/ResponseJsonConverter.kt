@@ -1,6 +1,7 @@
 package converter
 
 import com.google.gson.GsonBuilder
+import dto.PersonDTO
 import response.Response
 
 object ResponseJsonConverter : IJSonConverter<Response, String> {
@@ -14,6 +15,11 @@ object ResponseJsonConverter : IJSonConverter<Response, String> {
     }
 
     override fun convertFrom(json: String): Response {
-        TODO("Not yet implemented")
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        return gson.fromJson(json, Response::class.java)
+    }
+
+    fun fromJson(json: String): Response {
+        return convertFrom(json)
     }
 }

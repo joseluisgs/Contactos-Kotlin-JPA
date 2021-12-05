@@ -1,5 +1,6 @@
 package converter
 
+import dto.PersonDTO
 import org.json.JSONObject
 import org.junit.jupiter.api.*
 import response.Response
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
 class ResponseJsonConverterTest {
 
-    @DisplayName("Test toJson")
+    @DisplayName("Test Response to Json")
     @Test
     fun testResponseJsonConverter() {
         val jsonString = """
@@ -29,7 +30,25 @@ class ResponseJsonConverterTest {
         val res = JSONObject(resString).toMap()
 
         assertEquals(json, res)
+    }
 
+    @DisplayName("Test json to Response")
+    @Test
+    fun jsonToObject() {
+        val jsonString = """
+            {
+             "status": 1,
+             "data": "OK"
+            }
+        """.trimIndent()
+        val dto = Response(1, "OK")
+        val resDTO = ResponseJsonConverter.fromJson(jsonString)
+
+        Assertions.assertAll(
+            { assertEquals(dto, resDTO) },
+            { assertEquals(dto.status, resDTO.status) },
+            { assertEquals(dto.data, resDTO.data) }
+        )
     }
 
 }
