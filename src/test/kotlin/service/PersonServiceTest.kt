@@ -10,10 +10,12 @@ import org.mockito.Mockito
 import repository.PersonRepository
 import java.sql.SQLException
 import java.time.Instant
+import javax.transaction.Transactional
 
 @DisplayName("Suite Test PersonService")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
+@Transactional
 class PersonServiceTest {
 
     // Dependencia

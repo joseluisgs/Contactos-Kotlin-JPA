@@ -37,7 +37,7 @@
                 create: creates the schema, destroying previous data.
                 create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
                 none: does nothing with the schema, makes no changes to the database-->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>
