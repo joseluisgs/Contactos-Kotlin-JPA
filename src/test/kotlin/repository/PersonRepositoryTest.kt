@@ -64,6 +64,11 @@ class BinaryTest {
     @DisplayName("True is True")
     @Order(1)
     fun trueIsTrue() {
+        // Estructura de un test
+        // Arrange
+        // Act
+        // Assert
+
         assertTrue(true)
     }
 
