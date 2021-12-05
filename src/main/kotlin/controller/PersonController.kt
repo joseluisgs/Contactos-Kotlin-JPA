@@ -7,12 +7,14 @@ import dto.PersonDTO
 import mapper.PersonMapper
 import model.Person
 import org.json.JSONObject
+import repository.PersonRepository
 import response.Response
 import service.PersonService
 
 object PersonController : IController<PersonService> {
     // Mi servicio principal
-    override val service = PersonService()
+    override val service = PersonService(PersonRepository())
+
     private val mapper: PersonMapper = PersonMapper()
     // Obtienes todos
 

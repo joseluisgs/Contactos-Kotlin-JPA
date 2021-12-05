@@ -1,0 +1,3 @@
+# Las clases de mockito son finales por defecto, por lo que para no hacerlas open, usamos esta notación
+# https://blog.mindorks.com/mockito-cannot-mock-in-kotlin
+mock-maker-inline

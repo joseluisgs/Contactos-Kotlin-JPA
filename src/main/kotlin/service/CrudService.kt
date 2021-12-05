@@ -4,10 +4,10 @@ import java.sql.SQLException
 
 // En este caso, trabajando con genéricos, voy a meterle el servicio principal
 // Para ahorrarme hacerlo en el constructor
-interface CrudService<Repo, T, DTO, Mapper> {
+interface CrudService<T, DTO> {
 
-    val repository: Repo // Solo si inyectamos con genréricos
-    val mapper: Mapper // Solo si inyectamos con genréricos
+    //val repository: Repo // Solo si inyectamos con genréricos
+    //val mapper: Mapper // Solo si inyectamos con genréricos
 
     @Throws(SQLException::class)
     fun findAll(): List<DTO>?
