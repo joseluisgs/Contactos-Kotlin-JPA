@@ -10,7 +10,7 @@ object ResponseJsonConverter : IJSonConverter<Response, String> {
     }
 
     fun toJson(item: Response): String {
-        return ResponseJsonConverter.convertTo(item)
+        return convertTo(item)
     }
 
     override fun convertFrom(json: String): Response {
