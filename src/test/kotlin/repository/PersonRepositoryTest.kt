@@ -201,7 +201,7 @@ class BinaryTest {
             { assertEquals(p2.myAddress?.size, res.myAddress?.size) }
         )
 
-        // Excepción
+        // Excepción -- TODO Sería ideal otro test!!! y no mezclar
         val ex = assertThrows<SQLException> {
             repository.delete(p3)
         }.message

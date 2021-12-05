@@ -38,7 +38,7 @@ class PersonRepository : CrudRespository<Person, Long> {
             return item
         } catch (e: Exception) {
             HibernateController.transaction.rollback()
-            throw SQLException("Error PersonRepository al insertar Person en BD: ${e.message}: ${e.message}")
+            throw SQLException("Error PersonRepository save insertar Person en BD: ${e.message}")
         }
     }
 

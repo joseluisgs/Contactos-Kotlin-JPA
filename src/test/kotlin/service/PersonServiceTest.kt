@@ -193,7 +193,9 @@ class PersonServiceTest {
     fun findAddressOfPersonTest() {
         Mockito.`when`(personRepository.findAddress(p1))
             .thenReturn(p1.myAddress?.toList())
+
         val res = personService.findAddress(p1)
+
         assertAll(
             { Assertions.assertEquals(1, res.size) }
 
@@ -201,5 +203,113 @@ class PersonServiceTest {
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
         Mockito.verify(personRepository, Mockito.atLeastOnce()).findAddress(p1)
+    }
+
+    @Test
+    @DisplayName("Service FindAll Exception Test")
+    @Order(9)
+    fun findAllExceptionTest() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.findAll())
+            .thenThrow(SQLException("Error PersonRepository FindAll"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findAll()
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.findAll()
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Service FindById Exception Test")
+    @Order(10)
+    fun findByIdExceptionTest() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.findById(p1.id))
+            .thenThrow(SQLException("Error PersonRepository FindById"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findById(p1.id)
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.findById(p1.id)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Service Save Exception Test")
+    @Order(11)
+    fun saveExceptionTest() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.save(p1))
+            .thenThrow(SQLException("Error PersonRepository save"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).save(p1)
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.save(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Service Update Exception Test")
+    @Order(12)
+    fun updateExceptionTest() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.update(p1))
+            .thenThrow(SQLException("Error PersonRepository update"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).update(p1)
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.update(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Service Delete Exception Test")
+    @Order(13)
+    fun deleteExceptionTest() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.delete(p1))
+            .thenThrow(SQLException("Error PersonRepository delete"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).delete(p1)
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.delete(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+    }
+
+    @Test
+    @DisplayName("Service findAddress Exception Test")
+    @Order(15)
+    fun findAddressException() {
+        // Given: Dado el escenario Mockeamos el resultado
+        Mockito.`when`(personRepository.findAddress(p1))
+            .thenThrow(SQLException("Error PersonRepository finAddress"))
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findAddress(p1)
+
+        // When Excepción
+        val ex = assertThrows<SQLException> {
+            personService.findAddress(p1)
+        }.message
+        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
     }
 }
