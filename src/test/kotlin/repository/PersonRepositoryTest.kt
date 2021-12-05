@@ -184,7 +184,7 @@ class BinaryTest {
     fun findAddressOfPersonTest() {
         val res = repository.findAddress(p2)
         assertAll(
-            { assertEquals(1, res?.size) }
+            { assertEquals(1, res.size) }
 
         )
     }

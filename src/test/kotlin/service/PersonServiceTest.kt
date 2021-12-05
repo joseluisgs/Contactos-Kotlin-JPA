@@ -75,6 +75,9 @@ class PersonServiceTest {
         val res=this.personService.findAll()
         // Then, assert de JUnit
         Assertions.assertTrue(res.isEmpty())
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findAll()
     }
 
     @Test
@@ -95,6 +98,9 @@ class PersonServiceTest {
             { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
             { Assertions.assertEquals(p1.myAddress?.size, res[0].address?.size) },
         )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findAll()
     }
 
     @Test
@@ -113,6 +119,9 @@ class PersonServiceTest {
             { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
             { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
         )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findById(p1.id)
     }
 
     @Test
@@ -131,6 +140,9 @@ class PersonServiceTest {
             { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
             { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
         )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).save(p1)
     }
 
     @Test
@@ -149,6 +161,9 @@ class PersonServiceTest {
             { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
             { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
         )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).update(p1)
     }
 
     @Test
@@ -167,5 +182,24 @@ class PersonServiceTest {
             { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
             { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
         )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).delete(p1)
+    }
+
+    @Test
+    @DisplayName("Service Find Address of a Person Test")
+    @Order(8)
+    fun findAddressOfPersonTest() {
+        Mockito.`when`(personRepository.findAddress(p1))
+            .thenReturn(p1.myAddress?.toList())
+        val res = personService.findAddress(p1)
+        assertAll(
+            { Assertions.assertEquals(1, res.size) }
+
+        )
+
+        // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
+        Mockito.verify(personRepository, Mockito.atLeastOnce()).findAddress(p1)
     }
 }
