@@ -6,6 +6,9 @@ import model.Address
 import model.Person
 import model.PhoneNumber
 import org.junit.jupiter.api.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.mockito.Mock
 import org.mockito.Mockito
 import repository.PersonRepository
 import java.sql.SQLException
@@ -40,10 +43,12 @@ class PersonServiceTest {
 
     @BeforeAll
     fun setUp() {
-        // Creamos el mock... Sintáxis mock con Mockito
+        //Creamos el mock... Sintáxis mock con Mockito
         personRepository = Mockito.mock(PersonRepository::class.java)
         // Creamos el SUT con su mock
         personService = PersonService(personRepository)
+
+
 
         // Le añado a cada dirección quien soy yo, por bidireccionalidad. En números no, porque no quiero eso.
         p1.id = 1
@@ -61,7 +66,7 @@ class PersonServiceTest {
         // Given
         // When
         // Then
-        Assertions.assertTrue(true)
+        assertTrue(true)
     }
 
     @Test
@@ -74,7 +79,7 @@ class PersonServiceTest {
         // When: Actuamos
         val res=this.personService.findAll()
         // Then, assert de JUnit
-        Assertions.assertTrue(res.isEmpty())
+        assertTrue(res.isEmpty())
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
         Mockito.verify(personRepository, Mockito.atLeastOnce()).findAll()
@@ -92,11 +97,11 @@ class PersonServiceTest {
         val res=this.personService.findAll()
         // Then, assert de JUnit
         assertAll(
-            { Assertions.assertEquals(1, res.size) },
-            { Assertions.assertEquals(p1.name, res[0].name) },
-            { Assertions.assertEquals(p1.email, res[0].email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res[0].address?.size) },
+            { assertEquals(1, res.size) },
+            { assertEquals(p1.name, res[0].name) },
+            { assertEquals(p1.email, res[0].email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res[0].telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res[0].address?.size) },
         )
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
@@ -114,10 +119,10 @@ class PersonServiceTest {
         val res=this.personService.findById(p1.id)
         // Then, assert de JUnit
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res.address?.size) },
         )
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
@@ -135,10 +140,10 @@ class PersonServiceTest {
         val res=this.personService.save(p1)
         // Then, assert de JUnit
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res.address?.size) },
         )
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
@@ -156,10 +161,10 @@ class PersonServiceTest {
         val res=this.personService.update(p1)
         // Then, assert de JUnit
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res.address?.size) },
         )
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
@@ -177,10 +182,10 @@ class PersonServiceTest {
         val res=this.personService.delete(p1)
         // Then, assert de JUnit
         assertAll(
-            { Assertions.assertEquals(p1.name, res.name) },
-            { Assertions.assertEquals(p1.email, res.email) },
-            { Assertions.assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
-            { Assertions.assertEquals(p1.myAddress?.size, res.address?.size) },
+            { assertEquals(p1.name, res.name) },
+            { assertEquals(p1.email, res.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res.address?.size) },
         )
 
         // Extra, comprobamos que se ha llamado dicho método del mock (repsositorio)
@@ -197,7 +202,7 @@ class PersonServiceTest {
         val res = personService.findAddress(p1)
 
         assertAll(
-            { Assertions.assertEquals(1, res.size) }
+            { assertEquals(1, res.size) }
 
         )
 
@@ -220,7 +225,7 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.findAll()
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -238,7 +243,7 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.findById(p1.id)
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -256,7 +261,7 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.save(p1)
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -274,7 +279,7 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.update(p1)
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -292,7 +297,7 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.delete(p1)
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 
     @Test
@@ -310,6 +315,6 @@ class PersonServiceTest {
         val ex = assertThrows<SQLException> {
             personService.findAddress(p1)
         }.message
-        ex?.contains("Error PersonRepository")?.let { Assertions.assertTrue(it) }
+        ex?.contains("Error PersonRepository")?.let { assertTrue(it) }
     }
 }
