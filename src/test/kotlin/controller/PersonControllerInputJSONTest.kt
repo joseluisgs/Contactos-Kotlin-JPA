@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import java.time.Instant
 import javax.transaction.Transactional
 
-@DisplayName("Suite Test PersonController Output JSON")
+@DisplayName("Suite Test PersonController Input JSON")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
 @Transactional
