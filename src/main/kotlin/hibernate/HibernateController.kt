@@ -3,9 +3,6 @@ package hibernate
 import javax.persistence.EntityManager
 import javax.persistence.EntityTransaction
 import javax.persistence.Persistence
-import javax.persistence.Table
-import javax.persistence.metamodel.Metamodel
-import javax.transaction.Transactional
 
 object HibernateController {
     // Creamos las EntityManagerFactory para manejar las entidades y transacciones
@@ -14,7 +11,7 @@ object HibernateController {
     val transaction: EntityTransaction = manager.transaction
 
 
-    fun cleanAllTables() {
+    fun truncateAllTables() {
         val tableNames = manager.metamodel.entities.map { it.name }
         //tableNames.forEach { println(it) }
         transaction.begin()
@@ -26,7 +23,7 @@ object HibernateController {
         transaction.commit()
     }
 
-//    fun cleanTable(tableName: String) {
+//    fun truncateTable(tableName: String) {
 //        transaction.begin()
 //        manager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate()
 //        manager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate()

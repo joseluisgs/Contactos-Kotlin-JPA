@@ -74,9 +74,6 @@ class PersonServiceTest {
     @BeforeAll
     fun setUp() {
         initMyData()
-        // Limpio la base de datos para estar lista
-        //val h2Util = H2Util()
-        //h2Util.resetDatabase()
 
         //Creamos el mock... Sintáxis mock con Mockito
         personRepository = Mockito.mock(PersonRepository::class.java)

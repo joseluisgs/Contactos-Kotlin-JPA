@@ -7,11 +7,10 @@ import model.PhoneNumber
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import java.sql.SQLException
 import java.time.Instant
 import javax.transaction.Transactional
 
-@DisplayName("Suite Test PersonController")
+@DisplayName("Suite Test PersonController Output DTO")
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
 @Transactional
@@ -66,7 +65,7 @@ class PersonControllerDTOTest{
     fun setUp() {
         initMyData()
         // Limpio la base de datos para estar lista
-        HibernateController.cleanAllTables()
+        HibernateController.truncateAllTables()
     }
 
     @DisplayName("True is True")
@@ -115,14 +114,14 @@ class PersonControllerDTOTest{
         val res = PersonController.findAll()
         assertAll(
             { assertTrue(res?.isNotEmpty() ?: false) },
-//            { assertEquals(p1.name, res?.get(0)?.name) },
-//            { assertEquals(p1.email, res?.get(0)?.email) },
-//            { assertEquals(p1.myPhoneNumbers?.size, res?.get(0)?.telephone?.size) },
-//            { assertEquals(p1.myAddress?.size, res?.get(0)?.address?.size) },
-//            { assertEquals(p2.name, res?.get(1)?.name) },
-//            { assertEquals(p2.email, res?.get(1)?.email) },
-//            { assertEquals(p2.myPhoneNumbers?.size, res?.get(1)?.telephone?.size) },
-//            { assertEquals(p2.myAddress?.size, res?.get(1)?.address?.size) },
+            { assertEquals(p1.name, res?.get(0)?.name) },
+            { assertEquals(p1.email, res?.get(0)?.email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res?.get(0)?.telephone?.size) },
+            { assertEquals(p1.myAddress?.size, res?.get(0)?.address?.size) },
+            { assertEquals(p2.name, res?.get(1)?.name) },
+            { assertEquals(p2.email, res?.get(1)?.email) },
+            { assertEquals(p2.myPhoneNumbers?.size, res?.get(1)?.telephone?.size) },
+            { assertEquals(p2.myAddress?.size, res?.get(1)?.address?.size) },
         )
     }
 

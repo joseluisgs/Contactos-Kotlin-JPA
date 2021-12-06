@@ -68,7 +68,7 @@ class PersonRepositoryTest {
     @BeforeAll
     fun setUp() {
         initMyData()
-        HibernateController.cleanAllTables()
+        HibernateController.truncateAllTables()
     }
 
 
@@ -126,14 +126,14 @@ class PersonRepositoryTest {
         val res = repository.findAll()
         assertAll(
             { assertTrue(res.isNotEmpty()) },
-//            { assertEquals(p1.name, res[0].name) },
-//            { assertEquals(p1.email, res[0].email) },
-//            { assertEquals(p1.myPhoneNumbers?.size, res[0].myPhoneNumbers?.size) },
-//            { assertEquals(p1.myAddress?.size, res[0].myAddress?.size) },
-//            { assertEquals(p2.name, res[1].name) },
-//            { assertEquals(p2.email, res[1].email) },
-//            { assertEquals(p2.myPhoneNumbers?.size, res[1].myPhoneNumbers?.size) },
-//            { assertEquals(p2.myAddress?.size, res[1].myAddress?.size) }
+            { assertEquals(p1.name, res[0].name) },
+            { assertEquals(p1.email, res[0].email) },
+            { assertEquals(p1.myPhoneNumbers?.size, res[0].myPhoneNumbers?.size) },
+            { assertEquals(p1.myAddress?.size, res[0].myAddress?.size) },
+            { assertEquals(p2.name, res[1].name) },
+            { assertEquals(p2.email, res[1].email) },
+            { assertEquals(p2.myPhoneNumbers?.size, res[1].myPhoneNumbers?.size) },
+            { assertEquals(p2.myAddress?.size, res[1].myAddress?.size) }
         )
     }
 
