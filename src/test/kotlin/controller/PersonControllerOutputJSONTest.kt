@@ -15,7 +15,7 @@ import javax.transaction.Transactional
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS) // Para el Beforeall
 @Transactional
-class PersonControllerJSONTest{
+class PersonControllerOutputJSONTest{
     // Mi variable de prueba
     private lateinit var p1: Person
     private lateinit var p2: Person
@@ -227,5 +227,4 @@ class PersonControllerJSONTest{
             { assertEquals(p2.myAddress?.size, data.getJSONArray("address").length()) }
         )
     }
-
 }

@@ -176,6 +176,7 @@ object PersonController : IController<PersonService> {
             val person = mapper.fromDTO(personDTO)
             person.myAddress = null
             // person.myPhoneNumbers = null
+            println("Persona a eliminar: $person")
             ResponseJsonConverter.toJson(Response(200, service.delete(person)))
         } catch (e: Exception) {
             ResponseJsonConverter.toJson(Response(500, e.localizedMessage))
