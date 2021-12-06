@@ -25,9 +25,9 @@ Se implementa una arquitectura basada en Controlador -> Servicios -> Repositorio
 Para la persistencia de datos se usa JPA junto a Hibernate usando una Base de Datos Relacional en memoria H2. Puedes consultar más en el siguiente enlace: https://www.baeldung.com/learn-jpa-hibernate
 
 ## Test
-Para testear se ha usado [JUnit 5](https://junit.org/junit5/docs/current/user-guide/) para crear pruebas unitarias. Estas se han aplicado en el repositorio principalmente.
+Para testear se ha usado [JUnit 5](https://junit.org/junit5/docs/current/user-guide/) para crear [pruebas unitarias](https://www.baeldung.com/junit-5). Estas se han aplicado en el repositorio principalmente.
 Además, hemos complementado estas pruebas usando [Mockito](https://site.mockito.org/).
-Su uso principal se puede ver en Servicios, donde se mockea el repositorio.
+Su uso principal se puede ver en Servicios, donde se [mockea el repositorio](https://www.baeldung.com/mockito-series).
 El controlador se ha testeado usando solo JUnit 5. Por supuesto que se puede hacer mokeando el servicio, pero lo dejo como ampliación o ejercicio de clase para que el alumnado pueda hacerlo y practicar. Ahora mismo al usar solo usa JUnit, estamos integrando las llamadas a todas las clases y por lo tanto vemos como se encadenan las llamadas entre unas y otras. Estas es una gran diferencia sustanciar respecto al uso de mock, que siempre que sea posible es una opción más aceptable, pues pruebas tu clase sin depender "directamente" de la ejecución del resto. Como he dicho, si no mockeamos, estamos integrando en las pruebas unitarias entre capas de nuestras arquitectura.
 
 
